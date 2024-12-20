@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LabTest.Converters"
+             x:Class="LabTest.Views.QuestionOne"
+             BackgroundColor="#fafafa"
+             Title="BCS22090010">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:SliderValueToTextConverter x:Key="SliderValueToTextConverter"/>
+            <local:SliderValueToColorConverter x:Key="SliderValueToColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <Grid VerticalOptions="CenterAndExpand" RowDefinitions="*,*,*" Margin="20">
+            <Grid Grid.Row="0" ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                <Label Grid.Column="0" x:Name="label1" VerticalTextAlignment="Center"
+                       Text="{Binding Source={x:Reference slider1}, Path=Value, StringFormat='{0:F0}'}"/>
+                <Slider Grid.Column="1" x:Name="slider1" Grid.Row="1" HorizontalOptions="FillAndExpand"
+                        Minimum="0" Maximum="100" Value="0"
+                        MinimumTrackColor="Blue" MaximumTrackColor="Red" Margin="0,20"
+                        ThumbColor="Red"/>
+            </Grid>
+            
+            <Label x:Name="label2" Grid.Row="2" HorizontalOptions="CenterAndExpand"
+                   FontSize="Default"
+                   Text="{Binding Source={x:Reference slider1}, Path=Value, Converter={StaticResource SliderValueToTextConverter}}"
+                   TextColor="{Binding Source={x:Reference slider1}, Path=Value, Converter={StaticResource SliderValueToColorConverter}}"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>

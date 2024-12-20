@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LabTest.ViewModels"
+             x:DataType="vm:QuestionThreeViewModel"
+             x:Class="LabTest.Views.QuestionThree"
+             BackgroundColor="#fafafa"
+             Title="BCS22090010">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+       <VerticalStackLayout Grid.Row="0" Spacing="10" BackgroundColor="#fafafa" Padding="0,0,0,12">
+           <Entry Placeholder="Title" Text="{Binding Title}" />
+           <Entry Placeholder="Body" Text="{Binding Body}" />
+           <Button Text="Add Post" Command="{Binding AddPostCommand}" />
+           <Button Text="Refresh List" Command="{Binding LoadPostsCommand}" />
+            <Label Text="*Swipe post to right for delete"
+                   FontAttributes="Italic"
+                   TextColor="Red"/>
+        </VerticalStackLayout>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Posts}">
+           <CollectionView.ItemTemplate>
+               <DataTemplate x:DataType="vm:PostRecord">
+                   <SwipeView>
+                       <SwipeView.RightItems>
+                           <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:QuestionThreeViewModel}}, Path=DeletePostCommand}"
+                                           CommandParameter="{Binding .}" />
+
+                                <SwipeItem Text="Edit"
+                                           BackgroundColor="Orange"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:QuestionThreeViewModel}}, Path=UpdatePostCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                       </SwipeView.RightItems>
+                       <Grid Padding="10">
+                           <Border StrokeThickness="2" Stroke="Black" Padding="20" BackgroundColor="White">
+                               <Border.StrokeShape>
+                                   <RoundRectangle CornerRadius="30"/>
+                               </Border.StrokeShape>
+                               <VerticalStackLayout Spacing="20">
+                                   <Label Text="{Binding Title}" TextColor="Gray" 
+                                          FontAttributes="Bold" FontFamily="Bold" 
+                                          LineBreakMode="TailTruncation" MaxLines="1"/>
+                                   <Label Text="{Binding Body}" TextColor="Grey" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+    
+</ContentPage>

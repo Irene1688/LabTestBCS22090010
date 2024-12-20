@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:LabTest.ViewModels"
+             x:DataType="vm:QuestionTwoViewModel"
+             x:Class="LabTest.Views.QuestionTwo"
+             BackgroundColor="#fafafa"
+             Title="BCS22090010">
+    <StackLayout Margin="40,0"
+                VerticalOptions="CenterAndExpand">
+        <Entry x:Name="PhoneEntry"
+           Text="{Binding PhoneNumber}"
+           HorizontalTextAlignment="Center"
+           Placeholder="Enter phone number"
+           HorizontalOptions="FillAndExpand">
+            <Entry.Behaviors>
+                <toolkit:TextValidationBehavior 
+                RegexPattern="^0[0-9]{9,10}$"
+                IsValid="{Binding IsPhoneValid}"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Label Text="Invalid phone number" TextColor="Red"
+           IsVisible="{Binding IsPhoneInvalid}" />
+
+        <Entry x:Name="PasswordEntry"
+           Text="{Binding Password}"
+           HorizontalTextAlignment="Center"
+           IsPassword="True"
+           Placeholder="Password"
+           HorizontalOptions="FillAndExpand">
+            <Entry.Behaviors>
+                <toolkit:TextValidationBehavior 
+                MinimumLength="6"
+                IsValid="{Binding IsPasswordValid}"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Label Text="Password length should be greater than 5" TextColor="Red" 
+           IsVisible="{Binding IsPasswordInvalid}" />
+
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center" Margin="0,15">
+            <CheckBox x:Name="TermsAndConditionsCheckbox" Color="DeepPink"
+                   IsChecked="{Binding IsTermsAccepted}" />
+            <Label x:Name="TermsAndConditionsLabel"
+                   VerticalTextAlignment="Center"
+                   Text="I have read the terms and conditions"
+                   TextColor="Black"
+                   FontSize="Small"
+                   HorizontalOptions="Start" Margin="5" />
+        </StackLayout>
+
+        <Button x:Name="RegisterButton" Text="Register"
+            Command="{Binding RegisterCommand}"
+            FontSize="Medium" CornerRadius="20"
+            VerticalOptions="EndAndExpand"
+            HorizontalOptions="FillAndExpand"
+            IsEnabled="{Binding CanRegister}" />
+    </StackLayout>
+
+</ContentPage>
